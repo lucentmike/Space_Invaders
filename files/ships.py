@@ -6,7 +6,7 @@ BLUE_SPACE_SHIP = pygame.image.load("files/pixel_ship_blue_small.png")
 GREEN_SPACE_SHIP = pygame.image.load("files/pixel_ship_green_small.png")
 
 #Player ship
-YELLOW_SPACE_SHIP = pygame.image.load("files/pixel_ship_yellow.png")
+YELLOW_SPACE_SHIP = pygame.image.load("files/pixel_ship_yellow1.png")
 
 #Lasers
 RED_LASER = pygame.image.load("files/pixel_laser_red.png")
