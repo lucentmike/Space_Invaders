@@ -2,7 +2,7 @@ import pygame
 import os
 import time
 import random 
-from files.ships import Enemy, Ship, Player
+from files.ships import Enemy, Ship, Player, Laser, collide
 pygame.font.init()
 
 #Create pygame window and set width and height
@@ -25,9 +25,10 @@ def main():
     wave_legnth = 0
     enemey_vel = 1
 
-    player = Player(300, 650)
+    player = Player(300, 630)
 
     player_vel = 5
+    laser_vel = 5
 
     clock = pygame.time.Clock()
 
@@ -80,7 +81,7 @@ def main():
             level +=1
             wave_legnth += 5
             for i in range (wave_legnth):
-                enemy = Enemy(random.randrange(50, WIDTH -100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]), )
+                enemy = Enemy(random.randrange(50, WIDTH -100), random.randrange(-750, -100), random.choice(["red", "blue", "green"]), )
                 enemies.append(enemy)
 
 
@@ -96,14 +97,27 @@ def main():
             player.x += player_vel
         if keys[pygame.K_w] and player.y - player_vel > 0: #moving up 
             player.y -= player_vel 
-        if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT: #moving down
+        if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: #moving down
             player.y += player_vel
+        if keys[pygame.K_SPACE]:
+            player.shoot()
 
         for enemy in enemies[:]:
             enemy.move(enemey_vel)
-            if enemy.y + enemy.get_height() > HEIGHT:
+            enemy.move_lasers(laser_vel, player)
+
+            if random.randrange(0, 1000) == 1:
+                enemy.shoot()
+            
+            if collide(enemy, player):
+                player.health -= 10
+                enemies.remove(enemy)
+                
+            elif enemy.y + enemy.get_height() > HEIGHT:
                 lives -=1 
                 enemies.remove(enemy)
+
+        player.move_lasers(-laser_vel, enemies)
 
 
 main()
