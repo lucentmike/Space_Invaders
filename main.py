@@ -99,24 +99,28 @@ def main():
             player.y -= player_vel 
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: #moving down
             player.y += player_vel
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE]: #shoots lasers
             player.shoot()
 
+        #Moves the enemies down, and shoots shoots enemy lasers
         for enemy in enemies[:]:
             enemy.move(enemey_vel)
             enemy.move_lasers(laser_vel, player)
 
-            if random.randrange(0, 1000) == 1:
+            if random.randrange(0, 360) == 1:
                 enemy.shoot()
             
+            #decrements player health if collision
             if collide(enemy, player):
                 player.health -= 10
                 enemies.remove(enemy)
                 
+            #removes enemy from scneen if off screen
             elif enemy.y + enemy.get_height() > HEIGHT:
                 lives -=1 
                 enemies.remove(enemy)
 
+        #moves the player laser
         player.move_lasers(-laser_vel, enemies)
 
 

@@ -19,17 +19,14 @@ YELLOW_LASER = pygame.image.load("files/pixel_laser_yellow.png")
 
 WIDTH, HEIGHT = 750, 750
 
+#creates a collide function that detects is pixels overlap
 def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
 
+#creates laser class
 class Laser:
-
-    def collide(obj1, obj2):
-        offset_x = obj2.x - obj1.x
-        offset_y = obj2.y - obj1.y
-        return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
 
     def __init__(self, x, y, img):
         self.x = x
@@ -116,6 +113,7 @@ class Player(Ship):
                         objs.remove(obj)
                         self.lasers.remove(laser)
 
+    #health bar that green side dcrements with player calss
     def health_bar(self, window):
         pygame.draw.rect(window, (255,0,0,), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))
         pygame.draw.rect(window, (0,255,0,), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width() * (self.health/self.max_health), 10))
