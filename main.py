@@ -13,6 +13,10 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Invaders")
 
 BG = pygame.transform.scale(pygame.image.load("files/invaders.png"), (WIDTH, HEIGHT))
+BG2 = pygame.transform.scale(pygame.image.load("files/background-black.png"), (WIDTH, HEIGHT))
+BG3 = pygame.transform.scale(pygame.image.load("files/background-new.jpeg"), (WIDTH, HEIGHT))
+
+
 
 LOGO = pygame.transform.scale(pygame.image.load("files/logo.png"), (WIDTH - 100, HEIGHT ))
 
@@ -20,12 +24,13 @@ def main():
     run = True 
     FPS = 60
     level = 0
+
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 50)
     lost_font = pygame.font.SysFont("comicsans", 70)
 
     enemies = []
-    wave_legnth = 5
+    wave_legnth = 0
     enemey_vel = 1
 
     player = Player(300, 630)
@@ -40,7 +45,13 @@ def main():
 
     def redraw_window():
         #Draw background
-        WIN.blit(BG, (0,0))
+
+        if level > 2 :
+            WIN.blit(BG2, (0,0))
+        elif level > 1 < 3:
+            WIN.blit(BG3, (0,0))
+        else:
+            WIN.blit(BG, (0,0))
 
         #Draw text
         lives_label = main_font.render(f"Lives: {lives}", 1, (255,255,255))
@@ -66,6 +77,7 @@ def main():
     while run:
         clock.tick(FPS)
         redraw_window()
+
         
         #If live is 0 or zero health, turn list boolean to True 
         if lives <= 0 or player.health <= 0:
@@ -82,7 +94,7 @@ def main():
         #Span enemies when enemies is 0, with random placement and color and place in list. Spawns 5 enenmies when list is 0 and incriments the level
         if len(enemies) == 0:
             level +=1
-            wave_legnth += 2
+            wave_legnth += 5
             for i in range (wave_legnth):
                 enemy = Enemy(random.randrange(50, WIDTH -100), random.randrange(-750, -100), random.choice(["red", "blue", "green"]), )
                 enemies.append(enemy)
@@ -137,7 +149,6 @@ def main_menu():
     while run:
         WIN.blit (BG, (0,0))
         WIN.blit (LOGO, (WIDTH/2 - LOGO.get_width()/2, -200))
-        #WIN.blit (LOGO, ( WIDTH/2, 0) )
         title_label = title_font.render("Press the mouse button to begin", 1, (255, 255, 255))
         controls = title_font.render("Move: AWSD | Shoot: Space", 1, (255, 255, 255))
         WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
