@@ -47,9 +47,7 @@ def main():
     def redraw_window():
         #Draw background
 
-        if level > 3:
-            WIN.blit(BG4, (0,0))
-        elif level > 2 < 3  :
+        if level > 2   :
             WIN.blit(BG2, (0,0))
         elif level > 1 < 3:
             WIN.blit(BG3, (0,0))
