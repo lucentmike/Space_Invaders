@@ -108,11 +108,18 @@ class Player(Ship):
             if laser.off_screen(HEIGHT):
                 self.lasers.remove(laser)
             else:
-                for obj in objs:
+               for obj in objs:
                     if laser.collision(obj):
                         objs.remove(obj)
                         if laser in self.lasers:
-                            self.lasers.remove(laser)
+                            self.lasers.remove(laser)  
+
+    def laser_collide(self, objs):
+        for laser in self.lasers:
+            for obj in objs:
+                if laser.collision(obj):
+                        objs.remove(obj)
+                        self.lasers.remove(laser)                                                                                      
 
     #health bar that green side dcrements with player calss
     def health_bar(self, window):
@@ -124,6 +131,7 @@ class Player(Ship):
         self.health_bar(window)
 
 class Enemy(Ship):
+
     COLOR_MAP = {
         "red":(RED_SPACE_SHIP, RED_LASER), 
         "green":(GREEN_SPACE_SHIP, GREEN_LASER), 
@@ -139,7 +147,10 @@ class Enemy(Ship):
         self.y += vel
 
     def shoot(self):
+
         if self.cool_down_counter == 0:
             laser = Laser(self.x-20, self.y, self.laser_img)
             self.lasers.append(laser)
             self.cool_down_counter = 1
+
+

@@ -110,7 +110,7 @@ def main():
             enemy.move(enemey_vel)
             enemy.move_lasers(laser_vel, player)
 
-            if random.randrange(0, 360) == 1:
+            if random.randrange(0, 500) == 1:
                 enemy.shoot()
             
             #decrements player health if collision
@@ -126,6 +126,10 @@ def main():
         #moves the player laser
         player.move_lasers(-laser_vel, enemies)
 
+        for enemy in enemies:
+            player.laser_collide(enemy.lasers)
+
+#Creates a main menu, if button is presses start game, x is presses program is exited
 def main_menu():
     title_font = pygame.font.SysFont("comicsans", 40)
     run = True
