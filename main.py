@@ -15,6 +15,7 @@ pygame.display.set_caption("Space Invaders")
 BG = pygame.transform.scale(pygame.image.load("files/invaders.png"), (WIDTH, HEIGHT))
 BG2 = pygame.transform.scale(pygame.image.load("files/background-black.png"), (WIDTH, HEIGHT))
 BG3 = pygame.transform.scale(pygame.image.load("files/background-new.jpeg"), (WIDTH, HEIGHT))
+BG4 = pygame.transform.scale(pygame.image.load("files/BG4.jpeg"), (WIDTH, HEIGHT))
 
 
 
@@ -46,7 +47,9 @@ def main():
     def redraw_window():
         #Draw background
 
-        if level > 2 :
+        if level > 3:
+            WIN.blit(BG4, (0,0))
+        elif level > 2 < 3  :
             WIN.blit(BG2, (0,0))
         elif level > 1 < 3:
             WIN.blit(BG3, (0,0))
