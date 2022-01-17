@@ -25,7 +25,7 @@ def main():
     lost_font = pygame.font.SysFont("comicsans", 70)
 
     enemies = []
-    wave_legnth = 0
+    wave_legnth = 5
     enemey_vel = 1
 
     player = Player(300, 630)
@@ -82,7 +82,7 @@ def main():
         #Span enemies when enemies is 0, with random placement and color and place in list. Spawns 5 enenmies when list is 0 and incriments the level
         if len(enemies) == 0:
             level +=1
-            wave_legnth += 5
+            wave_legnth += 2
             for i in range (wave_legnth):
                 enemy = Enemy(random.randrange(50, WIDTH -100), random.randrange(-750, -100), random.choice(["red", "blue", "green"]), )
                 enemies.append(enemy)
@@ -110,8 +110,9 @@ def main():
             enemy.move(enemey_vel)
             enemy.move_lasers(laser_vel, player)
 
-            if random.randrange(0, 500) == 1:
-                enemy.shoot()
+            if enemy.y >= 0:
+                if random.randrange(0, 360) == 1:
+                    enemy.shoot()
             
             #decrements player health if collision
             if collide(enemy, player):
