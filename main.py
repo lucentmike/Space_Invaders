@@ -1,4 +1,3 @@
-from tkinter import N
 import pygame
 import os
 import time
